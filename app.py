@@ -1,6 +1,7 @@
 
 from flask import Flask
 from flask import request
+import tests.test
 
 app = Flask(__name__)
 
@@ -25,6 +26,19 @@ def http_test():
 @app.route("/test/templates")
 def templates_test():
     pass
+
+# http://localhost:5000/test/protection/encrypt?key=secret&plaintext=I-love-you
+@app.route("/test/protection/encrypt")
+def test_protection_encrypt():
+    k = request.args.get('key', '')
+    p = request.args.get('plaintext', '')
+    if k and p:
+        t = tests.test.Test()
+        c = t.encrypt_with_aes(k, p)
+        return f"<p>key: {k}</p> <p>plainttext: {p}</p><p>query str: {request.query_string}</p><p>{c}</p><p>{t.decrypt_with_aes(k, c)}</p>"
+        #pass
+    else:
+        return f"<p>bad url, sample input: '/test/protection/encrypt?key=secret&plaintext=hello-world'</p>"
 
 '''
 @app.route("/test/upload-files/<filename>")
