@@ -1,6 +1,7 @@
 
 from flask import Flask
 from flask import request
+import json
 import tests.test
 
 app = Flask(__name__)
@@ -39,6 +40,21 @@ def test_protection_encrypt():
         #pass
     else:
         return f"<p>bad url, sample input: '/test/protection/encrypt?key=secret&plaintext=hello-world'</p>"
+
+@app.route('/test/poetry')
+def test_poetry():
+    chuci_path = './chinese-poetry/楚辞/chuci.json'
+    f = open(chuci_path)
+    chuci = json.load(f)
+    ret = ''
+    for item in chuci:
+        title = item['title']
+        author = item['author']
+        content = '<br>'.join(item['content'])
+        ret += f'<p>{title}</p><p>{author}</p><p>{content}</p>'
+        ret += '<p><br></p>'
+    return ret
+
 
 '''
 @app.route("/test/upload-files/<filename>")
