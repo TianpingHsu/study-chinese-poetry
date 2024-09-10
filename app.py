@@ -55,6 +55,13 @@ def test_poetry():
         ret += '<p><br></p>'
     return ret
 
+@app.route("/test/baginstrument", methods=['POST'])
+def test_baginstrument():
+    data = request.get_json()
+    print(data)
+    return "<p>this is a POST method</p>"
+
+
 
 '''
 @app.route("/test/upload-files/<filename>")
