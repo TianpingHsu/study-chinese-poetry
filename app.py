@@ -8,9 +8,6 @@ import tests.test
 
 app = Flask(__name__)
 
-@app.route("/test")
-def hello_world():
-    return app.send_static_file('index.html')
 
 @app.route("/test/hello/<string:name>")
 def hello(name):
@@ -27,6 +24,10 @@ def test_protection_encrypt():
         return f"<p>key: {k}</p> <p>plainttext: {p}</p><p>query str: {request.query_string}</p><p>{c}</p><p>{t.decrypt_with_aes(k, c)}</p>"
     else:
         return f"<p>bad url, sample input: '/test/protection/encrypt?key=secret&plaintext=hello-world'</p>"
+
+@app.route('/cmd/bochk')
+def make_an_appointment():
+    return app.send_static_file('continueInput.html')
 
 @app.route('/cmd/poetry')
 def test_poetry():
@@ -65,12 +66,14 @@ def http_test():
     else:
         return f"<p>unsupported method: {request.method}</p>"
 
+@app.route('/static/')
 @app.route('/static/<static_file>')
-def test_bochk(static_file):
+def test_static(static_file="index"):
         return app.send_static_file(static_file + '.html')
 
+@app.route('/templates/')
 @app.route('/templates/<template_file>')
-def test_template(template_file):
+def test_template(template_file="index"):
     return render_template(template_file + '.html')
 
 @app.route('/templates/hello/<name>')

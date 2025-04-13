@@ -70,17 +70,12 @@
 
 
 
-<script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
-<script src="/js/jquery-migrate-3.3.2.min.js" type="text/javascript"></script>
-
-<script src="/js/jquery-ui-1.13.2.min.js" type="text/javascript"></script>
-
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}", type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/jquery-migrate-3.3.2.min.js') }}", type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui-1.13.2.min.js') }}", type="text/javascript"></script>
 
 
 <script src="https://transaction.bochk.com/whk/scripts/jquery-ui-1.13.2/i18n/jquery.ui.datepicker-zh-CN.js" type="text/javascript"></script>
-
-
-
 <script src="https://transaction.bochk.com/whk/scripts/datepicker.js" type="text/javascript"></script>
 <script src="https://transaction.bochk.com/whk/scripts/FileSaver.js" type="text/javascript"></script>
 <script src="https://transaction.bochk.com/whk/scripts/bochk-form.js" type="text/javascript"></script>
@@ -207,20 +202,10 @@
 </script>
 
 
-
-
 <script>window.startTime = (new Date).getTime();</script>
 </head>
 <body>
 	
-
-
-
-
-
-	
-
-
 
 <script type="text/javascript">
 
@@ -336,7 +321,7 @@ select{
     font-size: 1em;
 }
 .active_button {
-    background: url(/images/red-button-135.png);
+    background: url(/static/images/red-button-135.png);
     width: 135px;
     height: 48px;
     color: white;
