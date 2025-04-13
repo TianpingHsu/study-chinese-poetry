@@ -1,0 +1,521 @@
+
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>预约开立香港账户</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="cache-control" content="no-store" />
+<meta http-equiv="cache-control" content="must-revalidate" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="viewport" content="width=640, user-scalable=yes, initial-scale=0.5, maximum-scale=1">
+<link rel="icon" type="image/png" href="/whk/images/boc-icon-32.png"/>
+<script>
+	var clearHazardousCharacters=function(){
+		
+		var trim=function(value){
+			return value.replace(/^\s*/,"").replace(/\s*$/,"");
+		};
+		
+		 $("input").each(function(index){
+		 	this.value=trim(this.value);
+		 	if (this.value.match("<.*>")){
+		 		while(this.value.match("<")){
+		 			this.value=this.value.replace("<","&lt;");
+		 		}
+		 		while(this.value.match(">")){
+		 			this.value=this.value.replace(">","&gt;");
+		 		}
+		 	}
+		 });
+		 $("textarea").each(function(index){
+		 	this.value=trim(this.value);
+		 	if (this.value.match("<.*>")){
+		 		while(this.value.match("<")){
+		 			this.value=this.value.replace("<","&lt;");
+		 		}
+		 		while(this.value.match(">")){
+		 			this.value=this.value.replace(">","&gt;");
+		 		}
+		 	}
+		 });
+		 
+		 $("input.number").each(function(){
+		 	while(this.value.match(",")){
+		 		this.value=this.value.replace(",","");
+		 	}
+		 });
+		 
+		 
+	}
+</script>
+<link rel="stylesheet" href="https://transaction.bochk.com/whk/struts/boc_css_xhtml/styles.css" type="text/css" />
+<script src="https://transaction.bochk.com/whk/struts/utils.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="https://transaction.bochk.com/whk/scripts/jquery-ui-1.9.2/css/custom-theme/jquery-ui-1.9.2.min.css" type="text/css" media="all" /> 
+	<link rel="stylesheet" href="https://transaction.bochk.com/whk/styles/bochk-form.css" type="text/css" media="all" /> 
+
+<style>
+	.errorLabel {
+		color: black;
+	}
+</style>
+
+
+
+
+<script src="/js/jquery-3.7.1.min.js" type="text/javascript"></script>
+<script src="/js/jquery-migrate-3.3.2.min.js" type="text/javascript"></script>
+
+<script src="/js/jquery-ui-1.13.2.min.js" type="text/javascript"></script>
+
+
+
+<script src="https://transaction.bochk.com/whk/scripts/jquery-ui-1.13.2/i18n/jquery.ui.datepicker-zh-CN.js" type="text/javascript"></script>
+
+
+
+<script src="https://transaction.bochk.com/whk/scripts/datepicker.js" type="text/javascript"></script>
+<script src="https://transaction.bochk.com/whk/scripts/FileSaver.js" type="text/javascript"></script>
+<script src="https://transaction.bochk.com/whk/scripts/bochk-form.js" type="text/javascript"></script>
+<script src="https://transaction.bochk.com/whk/scripts/Blob.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	
+	var userAgent = window.navigator.userAgent.toUpperCase();
+	if(userAgent.indexOf("MSIE 6") >= 0
+		|| userAgent.indexOf("MSIE 8") >= 0
+		|| userAgent.indexOf("MSIE 7") >= 0
+		)
+	{	
+		if(userAgent.indexOf("TRIDENT") < 0)
+		{
+			window.location = 'https://transaction.bochk.com/whk/upgrade.html';
+		}else
+		{
+			var trident = userAgent.substr(userAgent.indexOf("TRIDENT"));
+			trident = trident.substr(trident.search(/\d/),1);
+			if(trident<=4)
+				window.location = 'https://transaction.bochk.com/whk/upgrade.html';
+		}
+	}
+	
+	
+	printContextPath = "https://transaction.bochk.com/whk";
+	copyright = "&copy 2021";
+
+ 	var updateBranch=function(code,target){
+ 		var d=new Date();
+ 		var t=$("#"+target);
+ 		var url='https://transaction.bochk.com/whk/json/json-branch.action';
+ 		var success=function(data){
+ 			var options='';
+ 			for (var i = 0; i < data.length; i++){
+ 				options+="<option value="+data[i].value+">"+data[i].message+"</option>";
+ 			}
+ 			t.html(options);
+ 		};
+ 		$.ajax({
+  			dataType: "json",
+  			url: url,
+  			data: "code="+code+"&t="+d.getTime(),
+  			success: success
+			});
+ 	};
+ 	
+ 	var updateOptionList=function(code,target,option){
+ 		var d=new Date();
+ 		var t=$("#"+target);
+ 		var url='https://transaction.bochk.com/whk/json/json-option.action';
+ 		var success=function(data){
+ 			var options='';
+ 			for (var i = 0; i < data.length; i++){
+ 				options+="<option value="+data[i].value+">"+data[i].message+"</option>";
+ 			}
+ 			t.html(options);
+				
+ 		};
+ 		$.ajax({
+  			dataType: "json",
+  			url: url,
+  			data: "code="+code+"&option="+option+"&t="+d.getTime(),
+  			success: success
+			});
+	};
+	
+ 	var updateOptionList=function(code,target,option,serviceType){
+ 		var d=new Date();
+ 		var t=$("#"+target);
+ 		var url='https://transaction.bochk.com/whk/json/json-option.action';
+ 		var success=function(data){
+ 			var options='';
+ 			for (var i in data){
+ 				options+="<option value="+data[i].value+">"+data[i].message+"</option>";
+ 			}
+ 			t.html(options);
+ 		};
+ 		if (code == ""){
+ 			var msg = '请选择';
+ 			success(eval('[{value:"", message: "' + msg + '"}]'));
+ 		} else {
+	 		$.ajax({
+	  			dataType: "json",
+	  			url: url,
+	  			data: "code="+code+"&option="+option+"&serviceType="+serviceType+"&t="+d.getTime(),
+	  			success: success
+				});
+		}
+ 	};
+ 	
+ 	function windowClose() {
+		var browserName = navigator.appName;
+		if (browserName == "Netscape") {
+			window.open('', '_self', '');
+			window.close();
+		} else {
+			window.close();
+		}
+	}
+ 	
+ 	$(document).ready(function(){
+		$("#captcha_link").click(function(){
+			var d=new Date();
+			var url="https://transaction.bochk.com/whk/bocCaptcha.jpg?"+d.getTime();
+			$("#captcha_img").attr("src",url);
+		});
+		
+		$("textarea").keydown(function() {
+			if(this.value.length >= this.getAttribute("maxlength") && event.keyCode != 8)
+			{	
+				window.event.returnValue=false;
+			}
+		});	
+		$("textarea").keyup(function() {
+			if(this.value.length >= this.getAttribute("maxlength"))
+			{	
+				this.value = this.value.substring(0,this.getAttribute("maxlength"));
+			}
+		});
+	});
+	
+</script>
+
+
+
+
+<script>window.startTime = (new Date).getTime();</script>
+</head>
+<body>
+	
+
+
+
+
+
+	
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	if (isMobile()) {
+        $('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=' + $(window).width() / 1024 + ', viewport-fit=cover');
+    }
+    $("[name=viewport]").attr("content",'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover');
+    window.scrollTo(0,0);
+    var doMain='https://www.bochk.com',lang = 'zh_CN';
+    if(doMain !=""){
+		if(lang == "zh_HK"){
+		   $("#notice").attr("href",doMain+"/s/TnC/datapolicynotice.tc");
+		}else if(lang == "zh_CN"){
+		   $("#notice").attr("href",doMain+"/s/TnC/datapolicynotice.sc ");	
+		}else if(lang == "en_EN"){
+		   $("#notice").attr("href",doMain+"/s/TnC/datapolicynotice.en");
+		   
+		   $(".select-menus select").css("max-width","475px");
+		   var txtLen = Math.floor(parseFloat($('#eAAOForm_serviceAccountType_field').css('width')) / parseFloat($('#eAAOForm_serviceAccountType_field option').css('fontSize'))) * 2;
+        		$('#eAAOForm_serviceAccountType_field option').each(function(index,item){
+        			if($(item).text().length > txtLen){
+        		        $(item).attr("title",$(item).text());        			
+        				$(item).text($(item).text().substring(0,txtLen-3) + '...');
+        			}
+        	})
+		}       
+    }
+    showMessage();
+    if('Y' == "N"){
+       		$('#eAAOForm_serviceAccountType_field option').each(function(index,item){
+       			if(item.value=="V"){
+       		        item.remove();        			
+       			}
+       	    })    
+     }
+});
+
+function isMobile() {
+    var userAgentInfo = navigator.userAgent;
+    var mobileAgents = [ "Android", "iPhone", "SymbianOS", "Windows Phone", "iPad","iPod"];
+    var mobile_flag = false;
+    //根据userAgent判断是否是手机
+    for (var v = 0; v < mobileAgents.length; v++) {
+        if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+            mobile_flag = true;
+            break;
+        }
+    }
+     var screen_width = window.screen.width;
+     var screen_height = window.screen.height;    
+     //根据屏幕分辨率判断是否是手机
+     if(screen_width < 500 && screen_height < 800){
+         mobile_flag = true;
+     }
+     return mobile_flag;
+}
+
+function showMessage() {
+	  if($("#eAAOForm_idType_field").val()=="HKID" && $("#eAAOForm_serviceAccountType_field").val()=="G"){
+	       $(".pledown" ).css("display", "");
+	  } else{
+	       $(".pledown" ).css("display", "none");
+	  }
+	  if($("#eAAOForm_serviceAccountType_field").val()=="V"){
+	  	$('.promotion-code').css("display", "");
+	  }else {
+	  	$(".promotion-code" ).css("display", "none");
+	  	$("#eAAOForm_promotionCode_field").val("");
+	  }
+}
+</script>
+
+<style>
+.hide{
+    display: none;
+}
+h2 {
+    font-size: 1.6em;
+}
+#account-opening table td {
+    width: auto !important;
+}
+.select-menus select{
+    max-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+#account-opening table td{padding:5px 0;width: 50%;word-break: break-word;}
+body #form-div>#top-bar{
+   width: 100%;
+}
+body #form-div>.no-small-text{padding-bottom:10px !important;}
+.opentitle{
+    padding: 10px 0px;
+    font-weight: bold;
+}
+@media screen and (min-width: 900px) {
+#account-opening{
+    width: 50%;}
+}
+@media screen and (max-width: 900px) {
+body #form-div{margin: 0 15px 0 15px;}
+}
+#top-bar .step, .text-right .step{    
+    padding: 5px 0 10px 10px;
+    vertical-align: middle;    
+}
+select{
+    font-size: 1em;
+}
+.active_button {
+    background: url(/images/red-button-135.png);
+    width: 135px;
+    height: 48px;
+    color: white;
+    border: none;
+    font-size: 19px;
+    padding-left: 1px;
+    padding-right: 1px;
+    cursor: pointer;
+    font-weight: 500;
+}
+	body #form-div>#top-bar {
+    	padding-right: 0 !important;
+	}
+	form>.form_area>.form_table td {
+    	padding: 10px 0 10px 0 !important;
+	}
+	.text-center {
+	    left: calc(100%/2 - 60px);
+	}
+	.active_button {
+	    background-size: cover;
+	}
+	label {
+	    display: inline !important;
+	}
+body td.text_label{
+    vertical-align: top;
+}	
+
+.Step_tracker{
+    padding: 15px 0px 0px 0px !important;
+    margin-bottom: -20px;
+}
+.Step_tracker li{
+    list-style: none;
+    float: left;
+    width: 24.99%;
+    box-sizing: border-box;
+    padding: 0px 0.5em 0px 0px;
+}	
+.Step_tracker li div{
+    background-color: #D6D6D6;
+    height: 4px;
+    border-radius: 2px;
+}	
+.active	{
+    background-color: #9F539B !important;
+}
+.inputpromotion{
+	background: transparent;
+	background-color: transparent;
+	width: calc(100% - 20px);
+	max-width: 230px;
+	padding: 5px;
+	line-height: 1;
+	border-radius: 0;
+	border-color: #ddd;
+	-webkit-appearance: none;
+	border-width: 5px;
+	border-style: solid;
+	height: 20px;
+	margin-left: -5px;
+}
+</style>
+
+<div id="form-div">
+    <div><ul class="Step_tracker"><li><div class="active"></div></li><li><div></div></li><li><div></div></li><li style="padding:0px;"><div></div></li></ul></div>
+	<div id="top-bar" class="no-small-text">
+		<h2>预约开立香港账户</h2>
+		<div class="opentitle">请提供以下资料，让我们更快为您安排预约。</div>
+		
+	</div>
+	<form autocomplete="off" id="eAAOForm" name="eAAOForm" action="https://transaction.bochk.com/whk/form/openAccount/continueInput.action" method="post">
+
+	
+		<div id="account-opening" class="form_area">
+			<table class="form_table account-form">
+				<tr>
+					<td colspan="2" style="font-weight: bold;color: red;">
+					
+					</td>
+				</tr>
+   				<tr><td colspan="2"></td></tr>
+   				<tr>
+					<td class="text_label" style="padding-top: 15px !important;"><label id="eAAOForm_idType_label" for="eAAOForm_idType_field">您的证件种类</label>
+</td>
+					<td>
+						<div class="select-menus"> 
+         					<div id="wwgrp_eAAOForm_idType_field" class="wwgrp">
+<div id="wwctrl_eAAOForm_idType_field" class="wwctrl">
+    
+<select name="bean.idType" id="eAAOForm_idType_field" style="width: 100%" onchange="showMessage()">
+    <option value=""
+    >请选择</option>
+    <option value="HKID">香港身份证</option>
+    <option value="CNID">中国居民身份证</option>
+    <option value="CNPT">中华人民共和国护照</option>
+    <option value="MCID">澳门身份证</option>
+    <option value="OPPT">其他护照</option>
+
+
+</select>
+</div> </div>
+
+							<div class="clear"></div>
+						</div>
+					</td>			
+				</tr>
+				<tr>
+				    <td class="text_label" style="padding-top: 15px !important;"><label id="eAAOForm_serviceAccountType_label" for="eAAOForm_serviceAccountType_field">开立账户种类</label>
+</td>
+					<td>
+					   <div class="select-menus">
+						   <div id="wwgrp_eAAOForm_serviceAccountType_field" class="wwgrp">
+<div id="wwctrl_eAAOForm_serviceAccountType_field" class="wwctrl">
+    
+<select name="bean.serviceAccountType" id="eAAOForm_serviceAccountType_field" style="width: 100%" onchange="showMessage()">
+    <option value=""
+    >请选择</option>
+    <option value="N">跨境理财通:北向通汇款专户</option>
+    <option value="G">一般账户</option>
+    <option value="V">特选账户</option>
+
+
+</select>
+</div> </div>
+
+							<div class="clear"></div>	
+					</td>
+				</tr>
+   				<tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr>	 
+   				<tr><td colspan="2">备注：<br />为向您提供预约开户服务，银行需收集您的资料。如您未能提供有关资料，银行可能无法处理您的预约。 您提供的个人资料只会用作是次申请的处理，而不会作其它直销用途。</td></tr>
+   				<tr><td colspan="2"><table>
+					<tr>
+					<td>
+						<input type="checkbox" name="acceptTerms" value="true" id="mortgageLoans_form_acceptTerms_field" style="zoom:120%"/><input type="hidden" id="__checkbox_mortgageLoans_form_acceptTerms_field" name="__checkbox_acceptTerms" value="true" />
+
+						
+							本人（等）已细阅、明白及同意银行的「<a href="../../../s/TnC/datapolicynotice.sc" id ="notice" target="_blank">资料政策通告</a>」 。经此渠道提供的「资料政策通告」以电子形式提供。
+						<label id="mortgageLoans_form_acceptTerms_label" for="mortgageLoans_form_acceptTerms_field"></label>
+
+						
+						
+					<td>
+					</tr>				
+   				</table></td></tr>	
+   				<tr class="pledown" style="font-weight: bold; display: none;"><td colspan="2">您只需<a href="https://www.bochk.com/sc/more/ebanking/apps.html" target="_blank" >按此</a>下载中银香港手机银行流动应用程式，便可选择即时开立账户。</td></tr>	
+   				<tr><td colspan="2" style="font-weight: bold;">如您需<span style="color: red;">修改或取消</span>开立香港账户的预约，请<a href="./cancelOrModifyInput.action">按此</a>继续办理。</td></tr>
+   				<tr class='promotion-code'><td colspan="2" style="font-weight: bold;">请输入有效预约码并按继续。</td></tr>
+				<tr class='promotion-code' style=" display: none;">
+				    <td class="text_label"><label id="eAAOForm_form_openMCaccount_promotionCode" for="eAAOForm_promotionCode_field">预约码</label>
+</td>	
+					<td style="padding-top: 4px !important;"><div id="wwgrp_eAAOForm_promotionCode_field" class="wwgrp">
+<div id="wwctrl_eAAOForm_promotionCode_field" class="wwctrl">
+    
+<input type="text" name="bean.promotionCode" maxlength="20" value="" id="eAAOForm_promotionCode_field" class="inputpromotion" title="预约码" oninput="value=value.replace(/[^\w\.\/]/g,'')"/>
+</div> </div>
+
+					</td>
+   				</tr> 
+   				<tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr>
+   					
+   				<tr class="text-center">
+   				
+				
+					<td colspan="2"><button title="继续" id="eAAOForm_submit_button" class="active_button"  type="submit">继续</button></td>
+				
+				</tr>
+   				<tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr>				
+   			</table>
+		</div>
+   	
+</form>
+
+
+
+
+</div>
+
+	<script src="https://transaction.bochk.com/whk/scripts/iframeResizer.contentWindow.min.js" type="text/javascript"></script>
+</body>
+</html>
